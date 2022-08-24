@@ -6,10 +6,29 @@ name: Build-Package-Release
 on:
   release:
     types: [created]
+  push:
+    branches: [ main ]
 
 jobs:
+  next-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: '0'
+    - name: Github Tag Bump
+      # You may pin to the exact commit or the version.
+      # uses: anothrNick/github-tag-action@3840ec22ac98e14d981375e3ae2d8d0392964521
+      uses: anothrNick/github-tag-action@1.39.0
+      env:
+        #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} #to tag repo
+         DRY_RUN: true
+  
+    
   build:
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
