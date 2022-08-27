@@ -27,7 +27,10 @@ jobs:
         #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} #to tag repo
          DRY_RUN: true
     - name: Next Tag Version
-      run: echo " ${{ steps.Github-Tag-Bump.outputs.new_tag }}" 
+      run: |
+        echo " ${{ steps.Github-Tag-Bump.outputs.new_tag }}"
+        echo ::set-output name=NEW_TAG::$new
+      
     
   build:
     runs-on: ubuntu-latest
